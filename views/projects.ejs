@@ -1,0 +1,8 @@
+<% layout('layout') %>
+
+<h1>Mes Projets</h1>
+<ul>
+	<% projects.forEach(project => { %>
+	<li><a href="/projects/<%= encodeURIComponent(project.title) %>"><%= project.title %></a> <%= project.date %></li>
+	<% }) %>
+</ul>

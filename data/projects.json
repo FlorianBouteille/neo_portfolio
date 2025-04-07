@@ -1,14 +1,15 @@
 [
-	{
-		"title": "Libft",
-		"description": "First project of the 42 Cursus. It's a library containing a few utils function to manipulate strings, compare memory and work with linked lists.\nIt will be used throughout the cursus for other projects and can be updated with as many tools as we want as long as it doesn't use any built in functions other than malloc, free and write",
-		"date": "2024-11-20",
-		"url": "http://github.com"
-	},
-	{
-		"title": "ft_printf",
-		"description": "Creating a function that mimics the behavior of the printf function in C.",
-		"date": "2024-12-22",
-		"url": "http://github.com"
-	}
+  {
+    "title": "Libft",
+    "description": "First project of the 42 Cursus. It's a library containing a few utils function to manipulate strings, compare memory and work with linked lists.\nIt will be used throughout the cursus for other projects and can be updated with as many tools as we want as long as it doesn't use any built in functions other than malloc, free and write",
+    "date": "2024-11-20",
+    "url": "http://github.com"
+  },
+  {
+    "title": "test",
+    "description": "ceci est un test",
+    "date": "2024-42-12",
+    "url": "tv-reveil.org",
+    "image": "/uploads/1744036024644.png"
+  }
 ]

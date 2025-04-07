@@ -1,0 +1,11 @@
+<% layout('layout') %>
+
+<h1>Modifier un projet</h1>
+<form action='/admin' method="POST" enctype="multipart/form-data">
+    <label>Titre : <input name="title" value="<%= project.title %>" required></label><br>
+    <label>Description : <textarea name="description" required><%= project.description %></textarea></label><br>
+    <label>Date : <input name="date" value="<%= project.date %> "required></label><br>			
+	<label>Url : <input name="url" value="<%= project.url %>" required></label><br>
+	<label>Image : <input type="file" name="image" accept="image/*" value="<%= project.image %>" required></label><br>
+	<button type="submit">Valider les modifications</button>
+</form>

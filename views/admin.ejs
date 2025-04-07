@@ -1,0 +1,25 @@
+<% layout('layout') %>
+
+<h1>Ajouter un projet</h1>
+<form action='/admin' method="POST" enctype="multipart/form-data">
+    <label>Titre : <input name="title" required></label><br>
+    <label>Description : <textarea name="description" required></textarea></label><br>
+    <label>Date : <input name="date" required></label><br>			
+	<label>Url : <input name="url" required></label><br>
+	<label>Image : <input type="file" name="image" accept="image/*" required></label><br>
+	<button type="submit">Ajouter</button>
+</form>
+<h2>Liste des Projets</h2>
+	<ul>
+  		<% projects.forEach(project => { %>
+    	<li>
+     		<%= project.title %> (<%= project.date %>)
+      		<form action="/admin/delete/<%= project.title %>" method="POST" style="display:inline;">
+        	<button type="submit">Supprimer</button>
+			</form>
+      		<form action="/admin/edit/<%= project.title %>" method="GET" style="display:inline;">
+        	<button type="submit">Modifier</button>
+      		</form>
+    	</li>
+  		<% }) %>
+	</ul>
