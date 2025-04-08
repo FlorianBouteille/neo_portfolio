@@ -46,6 +46,11 @@ function requireAdmin(req, res, next) {
 }
 
 //Route to the projects
+
+app.get('/', (req, res) => {
+	res.render('index', { pageTitle: 'Mon Portfolio' });
+});
+
 app.get('/api/projects', (req, res) =>
 	{
 		fs.readFile('./data/projects.json', 'utf8', (err, data) =>
@@ -65,7 +70,8 @@ app.get('/projects', (req, res) => {
     const projects = JSON.parse(data);
     
 	console.log("coucou");
-	res.render('projects', {projects: projects });
+	res.render('projects', {projects: projects, 
+							pageTitle: 'Mes Projets'});
   });
 });
 
@@ -81,17 +87,18 @@ app.get('/projects/:title', (req, res) => {
     if (!project) {
       return res.status(404).send('Projet non trouvé.');
     }
-
-    res.render('project', { project }); // Rendre la vue 'project.ejs' en passant les données du projet
+	console.log(project.title);
+    res.render('project', { project,
+							pageTitle: project.title })						
+	}); // Rendre la vue 'project.ejs' en passant les données du projet
   });
-});
 
 app.get('/admin', requireAdmin, (req, res) => {
   fs.readFile('./data/projects.json', 'utf8', (err, data) => {
     if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
 
     const projects = JSON.parse(data);
-    res.render('admin', { projects }); // Passe les projets à la vue
+    res.render('admin', { projects, pageTitle: 'Admin' }); // Passe les projets à la vue
   });
 });
 
@@ -151,7 +158,7 @@ app.get('/admin/edit/:title', requireAdmin, (req, res) => {
 
     if (!project) return res.status(404).send('Projet non trouvé.');
 
-    res.render('edit', { project });
+    res.render('edit', { project, pageTitle: 'Edit projects' });
   });
 });
 
@@ -184,7 +191,7 @@ app.post('/admin/edit/:title', requireAdmin, (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', { pageTitle : 'Login' });
 });
 
 app.post('/login', express.urlencoded({ extended: true }), (req, res) => {

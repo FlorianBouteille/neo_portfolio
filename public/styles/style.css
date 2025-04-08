@@ -1,4 +1,112 @@
+/* 
+offwhite	:	#F4F1DE
+orange  	: 	#E07A5F
+blue 		: 	#3D405B
+green		:	#81B29A
+sand		:	#F2CC8F
+*/
+
 body
 {
-	background="yellow";
+	margin : 0;
+	padding: 0;
+	background-color	:	#F4F1DE;
+	color				:	#3D405B;
+}
+
+header
+{
+	background-color	:	#81B29A;
+	display				:	flex;
+	align-items			:	center;
+	justify-content		:	center;
+	min-height			:	100px;	
+}
+
+footer
+{
+	background-color	:	#E07A5F;
+	display				:	flex;
+	align-items			:	center;
+	justify-content		:	center;
+	min-height			:	100px;	
+}
+
+h1
+{
+	text-align	:	center;
+	margin		:	0;
+}
+
+main
+{
+	display			:	flex;
+	flex-direction	:	column;
+	justify-content	:	center;
+	align-items		:	center;
+}
+
+.mainImage
+{
+	max-width		: 80%;        /* Pour qu’elle ne dépasse jamais son conteneur */
+  	height			: auto;           /* Garde les proportions */
+  	border-radius	: 30px;    /* Bords arrondis */
+  	object-fit		: cover;      /* Optionnel : utile si tu forces une taille */
+  	box-shadow		: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optionnel : petite ombre sympa */
+	margin			: 0 auto;
+	margin-top		: 3%;
+}
+
+/* Style général pour la liste */
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style des éléments de la liste */
+li {
+  list-style-type: none;
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Style des liens dans les bulles */
+li a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none; /* Enlève le soulignement du lien */
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+li a:hover {
+  opacity: 0; /* L'image devient invisible lors du hover */
+}
+
+li > h2
+{
+	color	:	#E07A5F;	
+}
+
+/* Style du texte à l’intérieur de la bulle (titre du projet) */
+li a h2 {
+  color: white;
+  font-size: 1.2em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }

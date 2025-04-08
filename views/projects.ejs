@@ -1,8 +1,11 @@
 <% layout('layout') %>
 
-<h1>Mes Projets</h1>
 <ul>
-	<% projects.forEach(project => { %>
-	<li><a href="/projects/<%= encodeURIComponent(project.title) %>"><%= project.title %></a> <%= project.date %></li>
-	<% }) %>
+  <% projects.forEach(project => { %>
+    <li>
+      <a href="/projects/<%= project.title %>" style="background-image: url('<%= project.image %>');">
+        <h2><%= project.title %></h2>
+      </a>
+    </li>
+  <% }); %>
 </ul>

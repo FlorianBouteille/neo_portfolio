@@ -1,15 +1,58 @@
 [
   {
     "title": "Libft",
-    "description": "First project of the 42 Cursus. It's a library containing a few utils function to manipulate strings, compare memory and work with linked lists.\nIt will be used throughout the cursus for other projects and can be updated with as many tools as we want as long as it doesn't use any built in functions other than malloc, free and write",
-    "date": "2024-11-20",
-    "url": "http://github.com"
+    "description": "My very own first library ! First project of the 42 cursus. A library of utilities using only write(), malloc(), and free().\r\nBonus part about chained lists. ",
+    "date": "2024-20-11",
+    "url": "https://github.com/FlorianBouteille/Libft_42",
+    "image": "/uploads/1744113517331.jpg"
   },
   {
-    "title": "test",
-    "description": "ceci est un test",
-    "date": "2024-42-12",
-    "url": "tv-reveil.org",
-    "image": "/uploads/1744036024644.png"
+    "title": "Ft_printf",
+    "description": "Recoding the printf function, with less options. An introduction to variadic functions. ",
+    "date": "2024-03-12",
+    "url": "https://github.com/FlorianBouteille/ft_printf_42",
+    "image": "/uploads/1744113658487.jpg"
+  },
+  {
+    "title": "Get_next_line",
+    "description": "Get the next line ! A function thet returns a line from a file. This project is about buffer management and memory allocation in C. ",
+    "date": "2024-18-12",
+    "url": "https://github.com/FlorianBouteille/get_next_line42",
+    "image": "/uploads/1744113885894.jpg"
+  },
+  {
+    "title": "Push_Swap",
+    "description": "An introduction to the wonderful world of sorting algorithms !\r\n\r\nThe goal is to sort a stack of numbers by rotating it and pushing numbers to and from another stack. \r\n\r\nAlso linked lists. ",
+    "date": "2025-20-01",
+    "url": "https://github.com/FlorianBouteille/push_swap_42",
+    "image": "/uploads/1744114160935.jpg"
+  },
+  {
+    "title": "Pipex",
+    "description": "Recode the pipe | from bash in a C program. \r\n\r\nThis project is about child processes and pipes. \r\n\r\nTook me a while. ",
+    "date": "2025-22-02",
+    "url": "https://github.com/FlorianBouteille/Pipex_42",
+    "image": "/uploads/1744114321349.jpg"
+  },
+  {
+    "title": "So_long",
+    "description": "My first mini-game in C !\r\n\r\nA 2D platformer with a very basic event handling and window management part. An opportunity to get into larger work environments. \r\n\r\nIts quite fun !",
+    "date": "2025-08-03",
+    "url": "https://github.com/FlorianBouteille/so_long_42",
+    "image": "/uploads/1744114758470.png"
+  },
+  {
+    "title": "Philosophers",
+    "description": "An introduction to concurrent programming. \r\n\r\nThe dining philosophers problems is a classic illustration of multiple threads simultaneously trying to access the same data. It poses a lot of challenges and its pretty fun to do ! ",
+    "date": "2025-03-04",
+    "url": "https://github.com/FlorianBouteille/philo_42",
+    "image": "/uploads/1744114998114.png"
+  },
+  {
+    "title": "Old Portfolio",
+    "description": "My old portfolio containing mostly graphical projects using the P5.js library and a few other tools. \r\n\r\nThis library, and a lot of dan shiffman's tutorials are how i got into programming and will always have a special place in my heart. ",
+    "date": "2022-12-12",
+    "url": "https://florianbouteille.github.io/portfolio.github.io/",
+    "image": "/uploads/1744115917137.png"
   }
 ]

@@ -1,7 +1,7 @@
 <% layout('layout') %>
 
 <h1>Modifier un projet</h1>
-<form action='/admin' method="POST" enctype="multipart/form-data">
+<form action='/admin/edit/<%= project.title %>' method="POST">
     <label>Titre : <input name="title" value="<%= project.title %>" required></label><br>
     <label>Description : <textarea name="description" required><%= project.description %></textarea></label><br>
     <label>Date : <input name="date" value="<%= project.date %> "required></label><br>			
