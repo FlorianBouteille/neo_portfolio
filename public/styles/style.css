@@ -4,6 +4,7 @@ orange  	: 	#E07A5F
 blue 		: 	#3D405B
 green		:	#81B29A
 sand		:	#F2CC8F
+https://dev.to/uuuuuulala/making-background-blob-animation-in-just-15kb-step-by-step-guide-2482
 */
 
 body
@@ -36,6 +37,17 @@ h1
 {
 	text-align	:	center;
 	margin		:	0;
+}
+
+a
+{
+	text-decoration	:	none;
+}
+
+a:visited
+{
+	text-decoration	:	none;
+	color			:	#3D405B;
 }
 
 main
@@ -72,11 +84,13 @@ li {
   width: 150px;
   height: 150px;
   margin: 10px;
-  border-radius: 50%;
+  border-radius: 50%; /* Bulle ronde */
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  background-color: #3498db; /* Fond coloré pour la bulle */
+  overflow: hidden; /* Cache tout ce qui dépasse */
 }
 
 /* Style des liens dans les bulles */
@@ -86,27 +100,41 @@ li a {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none; /* Enlève le soulignement du lien */
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
+  text-decoration: none;
+  color: white; /* Couleur du texte */
+  position: relative;
+  border-radius: 50%; /* Bulle ronde */
+  overflow: hidden;
+}
+
+/* L'image en arrière-plan, cachée par défaut */
+li a::before {
+  content: '';
   position: absolute;
-  transition: opacity 0.3s ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover; /* L'image couvre toute la bulle */
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0; /* L'image est cachée par défaut */
+  transition: opacity 0.3s ease; /* Transition fluide pour l'apparition de l'image */
+  z-index: 1; /* L'image est derrière le texte */
 }
 
+/* Rendre l'image visible au survol */
 li a:hover {
-  opacity: 0; /* L'image devient invisible lors du hover */
+  opacity: 1; /* L'image devient visible au survol */
 }
 
-li > h2
-{
-	color	:	#E07A5F;	
-}
-
-/* Style du texte à l’intérieur de la bulle (titre du projet) */
+/* Le texte reste au-dessus de l'image */
 li a h2 {
-  color: white;
-  font-size: 1.2em;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  z-index: 1;
+  z-index: 2; /* Le texte reste au-dessus de l'image */
 }
+
+/* Optionnel : si tu veux redimensionner les images pour qu'elles s'adaptent au rond */
+li a::before {
+  background-size: 100% 100%; /* Ajuster l'image pour qu'elle occupe tout l'espace disponible */
+}
+
