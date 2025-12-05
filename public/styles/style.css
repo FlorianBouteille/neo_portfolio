@@ -8,12 +8,26 @@ https://dev.to/uuuuuulala/making-background-blob-animation-in-just-15kb-step-by-
 https://codepen.io/MoorLex/pen/pRRzKx
 */
 
+/* html, body
+{
+	height: 100%;
+	margin: 0;
+}
+
 body
 {
+	height: 100%;
 	margin : 0;
 	padding: 0;
 	background-color	:	#F4F1DE;
 	color				:	#3D405B;
+	display: flex;
+	flex-direction: column;
+}
+
+main
+{
+	flex: 1;
 }
 
 header
@@ -61,40 +75,55 @@ main
 
 .mainImage
 {
-	max-width		: 80%;        /* Pour qu’elle ne dépasse jamais son conteneur */
-  	height			: auto;           /* Garde les proportions */
-  	border-radius	: 30px;    /* Bords arrondis */
-  	object-fit		: cover;      /* Optionnel : utile si tu forces une taille */
-  	box-shadow		: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optionnel : petite ombre sympa */
+	max-width		: 80%;       
+  	height			: auto;           
+  	border-radius	: 30px;   
+  	object-fit		: cover;      
+  	box-shadow		: 0 2px 8px rgba(0, 0, 0, 0.1); 
 	margin			: 0 auto;
 	margin-top		: 3%;
 }
 
-/* Style général pour la liste */
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+ul.projectsWrapper {
+	height: 80%;
   padding: 0;
   margin: 0;
 }
 
-/* Style des éléments de la liste */
+.color1 { background-color: #E07A5F; }
+.color2 { background-color: #3D405B; }
+.color3 { background-color: #81B29A; }
+
+.colorCircle
+{
+  	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+  	position: relative;
+  	width: 100%;
+  	height: 100%;
+  	border-radius: 50%; 
+	transition: .3s ease;
+}
+
+li:hover .colorCircle
+{
+	transform: scale(0);
+}
+
 li {
   list-style-type: none;
   width: 150px;
   height: 150px;
   margin: 10px;
-  border-radius: 50%; /* Bulle ronde */
+  border-radius: 50%; 
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: #3498db; /* Fond coloré pour la bulle */
-  overflow: hidden; /* Cache tout ce qui dépasse */
+  transition: 0.3s ease;
 }
 
-/* Style des liens dans les bulles */
 li a {
   width: 100%;
   height: 100%;
@@ -102,40 +131,303 @@ li a {
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  color: white; /* Couleur du texte */
   position: relative;
-  border-radius: 50%; /* Bulle ronde */
+  border-radius: 50%; 
+  overflow: hidden;
+  background-size: cover;
+}
+
+li a h2
+{
+	color:	#F4F1DE;	
+	text-align:	center;
+}
+
+li:hover
+{
+	width: 200px;
+	height: 200px;
+	border:	10px solid #3D405B;
+}
+
+#physics-container {
+  position: relative;
+  width: 100%;
+  height: 80vh; 
   overflow: hidden;
 }
 
-/* L'image en arrière-plan, cachée par défaut */
-li a::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-size: cover; /* L'image couvre toute la bulle */
+.projectsWrapper {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-ball {
+  position: absolute; 
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.project-ball .circleContent {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0; /* L'image est cachée par défaut */
-  transition: opacity 0.3s ease; /* Transition fluide pour l'apparition de l'image */
-  z-index: 1; /* L'image est derrière le texte */
+  border-radius: 50%;
+} 
+*/
+
+
+
+/* Reset global */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #F4F1DE;
+    color: #3D405B;
 }
 
-/* Rendre l'image visible au survol */
-li a:hover {
-  opacity: 1; /* L'image devient visible au survol */
+/* Body et main */
+body {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Le texte reste au-dessus de l'image */
-li a h2 {
-  z-index: 2; /* Le texte reste au-dessus de l'image */
+main {
+    flex: 1;
 }
 
-/* Optionnel : si tu veux redimensionner les images pour qu'elles s'adaptent au rond */
-li a::before {
-  background-size: 100% 100%; /* Ajuster l'image pour qu'elle occupe tout l'espace disponible */
+/* Header & footer */
+header, footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
 }
 
+header {
+    background-color: #81B29A;
+}
+
+footer {
+    background-color: #E07A5F;
+}
+
+/* Titles */
+h1, h2 {
+    text-align: center;
+    margin: 0;
+}
+
+h1
+{
+  font-size: 50px;
+}
+
+a
+{
+	text-decoration	:	none;
+}
+
+a:visited
+{
+	text-decoration	:	none;
+	color			:	#3D405B;
+}
+
+/* Physics container */
+#physics-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 200px); /* zone physique */
+    overflow: hidden;
+}
+
+/* Bulles physiques */
+.projectBubble {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    /* width/height définis par JS via radius */
+}
+
+.projectBubble .circleContent {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+	  display: flex;
+    justify-content: center;  /* centre horizontalement */
+    align-items: center;      /* centre verticalement */
+    text-align: center;
+}
+
+.projectBubble h2 {
+    color: #F4F1DE;
+    margin: 0;
+    padding: 0 5px; /* pour éviter que le texte touche les bords */
+    font-size: 1.5em; /* ajuste si besoin selon le radius */
+    word-wrap: break-word;
+    opacity: 0;
+}
+
+/* Optionnel : style hover pour zoom */
+.projectBubble:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+.projectBubble:hover img
+{
+  overflow: hidden;
+  opacity:0;
+}
+
+.projectBubble:hover h2
+{
+  opacity: 1;
+}
+
+
+/* Supprimer flex/grid qui clash avec les bulles */
+ul.projectsWrapper, li, li a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+}
+
+.projectPage
+{
+	display: flex;
+	padding: 3%;
+	flex-direction: column;
+	align-items: center;
+}
+
+.mainImage
+{
+	width: 50%;
+	border-radius: 12%;
+}
+
+/**** FONT CLASSES ****/
+
+.kedebideri-regular {
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kedebideri-medium {
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.kedebideri-semibold {
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.kedebideri-bold {
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.kedebideri-extrabold {
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kedebideri-black {
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.alumni-sans-pinstripe-regular {
+  font-family: "Alumni Sans Pinstripe", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.alumni-sans-pinstripe-regular-italic {
+  font-family: "Alumni Sans Pinstripe", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.new-amsterdam-regular {
+  font-family: "New Amsterdam", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.jaro {
+  font-family: "Jaro", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.electrolize-regular {
+  font-family: "Electrolize", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+.silkscreen-regular {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.silkscreen-bold {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.monofett-regular {
+  font-family: "Monofett", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.doto {
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 0;
+}
+
+.bungee-shade-regular {
+  font-family: "Bungee Shade", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.tourney {
+  font-family: "Tourney", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}

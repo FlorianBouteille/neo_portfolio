@@ -1,6 +1,8 @@
 <% layout('layout') %>
 
-<img class="mainImage" src="<%= project.image %>" alt="<%= project.title %>" />
-<p><strong>Description :</strong> <%= project.description %></p>
-<p><strong>Date :</strong> <%= project.date %></p>
-<p><strong>URL :</strong> <a href="<%= project.url %>"><%= project.url %></a></p>
+<div class="projectPage">
+    <img class="mainImage" src="<%= project.image %>" alt="<%= project.title %>" />
+    <p class="electrolize-regular"><strong>Description :</strong> <%= project.description %></p>
+    <p class="electrolize-regular"><strong>Date :</strong> <%= project.date %></p>
+    <p class="electrolize-regular"><strong>URL :</strong> <a href="<%= project.url %>"><%= project.url %></a></p>
+</div>

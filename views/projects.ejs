@@ -1,12 +1,22 @@
 <% layout('layout') %>
 
-<h2>Mes Projets</h2>
-<ul>
-  <% projects.forEach(project => { %>
-    <li>
-      <a href="/projects/<%= project.title %>" style="background-image: url('<%= project.image %>');">
-        <h2><%= project.title %></h2>
-      </a>
-    </li>
-  <% }); %>
-</ul>
+
+
+<div id="physics-container">
+  <h2 class="electrolize-regular">Mes Projets</h2>
+  <ul class="projectsWrapper">
+    <% projects.forEach(project => { %>
+      <li class="projectBubble" data-url="/projects/<%= project.title %>">
+        <% const colors = ['color1', 'color2', 'color3']; %>
+        <% const randomColor = colors[Math.floor(Math.random() * colors.length)]; %>
+        <div class="circleContent <%= randomColor %>" 
+             style="background-image: url('<%= project.image %>');">
+          <h2 class = "electrolize-regular"><%= project.title %></h2>
+        </div>
+      </li>
+    <% }); %>
+  </ul>
+</div>
+
+<script src="/js/matter.min.js"></script>
+<script src="/js/projectsPhysics.js"></script>
