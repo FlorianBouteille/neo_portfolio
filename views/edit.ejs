@@ -3,6 +3,14 @@
 <h1>Modifier un projet</h1>
 <form action='/admin/edit/<%= project.title %>' method="POST">
     <label>Titre : <input name="title" value="<%= project.title %>" required></label><br>
+    <label for="type-select">Type :</label>
+	<select name="pets" id="pet-select">
+		<option value="">--Please choose an option--</option>
+		<option value="42">42</option>
+		<option value="graphic">Graphic</option>
+		<option value="game">Game</option>
+		<option value="other">Other</option>
+	</select><br>
     <label>Description : <textarea name="description" required><%= project.description %></textarea></label><br>
     <label>Date : <input name="date" value="<%= project.date %> "required></label><br>			
 	<label>Url : <input name="url" value="<%= project.url %>" required></label><br>

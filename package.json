@@ -19,11 +19,13 @@
   },
   "homepage": "https://github.com/FlorianBouteille/neo_portfolio#readme",
   "dependencies": {
+    "dotenv": "^17.3.1",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "matter-js": "^0.20.0",
+    "mongoose": "^9.2.4",
     "multer": "^1.4.5-lts.2"
   }
 }

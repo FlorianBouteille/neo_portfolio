@@ -4,6 +4,15 @@
 <h1>Ajouter un projet</h1>
 <form action='/admin' method="POST" enctype="multipart/form-data">
     <label>Titre : <input name="title" required></label><br>
+	<label for="type-select">Type :</label>
+
+	<select name="pets" id="pet-select">
+		<option value="">--Please choose an option--</option>
+		<option value="42">42</option>
+		<option value="graphic">Graphic</option>
+		<option value="game">Game</option>
+		<option value="other">Other</option>
+	</select><br>
     <label>Description : <textarea name="description" required></textarea></label><br>
     <label>Date : <input name="date" required></label><br>			
 	<label>Url : <input name="url" required></label><br>

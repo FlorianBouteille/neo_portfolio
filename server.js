@@ -1,11 +1,17 @@
 // load express
 const express = require('express');
 const engine = require('ejs-mate');
-//load fs to read files
-const fs = require('fs');
+require('dotenv').config();
+const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-const ADMIN_PASSWORD = 'tagazok';
+const Project = require('./models/Project');
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI).then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection error:', err));
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -51,143 +57,110 @@ app.get('/', (req, res) => {
 	res.render('index', { pageTitle: 'Mon Portfolio' });
 });
 
-app.get('/api/projects', (req, res) =>
-	{
-		fs.readFile('./data/projects.json', 'utf8', (err, data) =>
-			{
-				if (err)
-				{
-					return res.status(500).json({error: 'JSON File reading Error'});
-				}
-				res.json(JSON.parse(data));
-			});
-	});
-
-app.get('/projects', (req, res) => {
-  fs.readFile('./data/projects.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
-
-    const projects = JSON.parse(data);
-    
-	console.log("coucou");
-	res.render('projects', {projects: projects, 
-							pageTitle: 'Mes Projets'});
-  });
+app.get('/api/projects', async (req, res) => {
+  try {
+    const projects = await Project.find();
+    res.json(projects);
+  } catch (err) {
+    return res.status(500).json({error: 'Database reading Error'});
+  }
 });
 
-app.get('/projects/:title', (req, res) => {
-  const { title } = req.params; // Récupérer le titre du projet depuis l'URL
+app.get('/projects', async (req, res) => {
+  try {
+    const projects = await Project.find();
+    res.render('projects', {projects: projects, 
+                          pageTitle: 'Mes Projets'});
+  } catch (err) {
+    return res.status(500).send('Erreur de lecture des projets.');
+  }
+});
 
-  fs.readFile('./data/projects.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
+app.get('/projects/:title', async (req, res) => {
+  const { title } = req.params;
 
-    const projects = JSON.parse(data);
-    const project = projects.find(p => p.title === title); // Trouver le projet correspondant au titre
+  try {
+    const project = await Project.findOne({ title: title });
 
     if (!project) {
       return res.status(404).send('Projet non trouvé.');
     }
-	console.log(project.title);
     res.render('project', { project,
-							pageTitle: project.title })						
-	}); // Rendre la vue 'project.ejs' en passant les données du projet
-  });
-
-app.get('/admin', requireAdmin, (req, res) => {
-  fs.readFile('./data/projects.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
-
-    const projects = JSON.parse(data);
-    res.render('admin', { projects, pageTitle: 'Admin' }); // Passe les projets à la vue
-  });
+                          pageTitle: project.title });
+  } catch (err) {
+    return res.status(500).send('Erreur de lecture du projet.');
+  }
 });
 
-app.post('/admin', requireAdmin, upload.single('image'), (req, res) => {
+app.get('/admin', requireAdmin, async (req, res) => {
+  try {
+    const projects = await Project.find();
+    res.render('admin', { projects, pageTitle: 'Admin' });
+  } catch (err) {
+    return res.status(500).send('Erreur de lecture des projets.');
+  }
+});
+
+app.post('/admin', requireAdmin, upload.single('image'), async (req, res) => {
   const { title, description, date, url } = req.body;
-  const image = req.file ? `/uploads/${req.file.filename}` : ''; // Enregistrer le chemin relatif de l'image
+  const image = req.file ? `/uploads/${req.file.filename}` : '';
 
-  // Ajouter le projet à ton fichier JSON (ou base de données)
-  fs.readFile('./data/projects.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
-
-    const projects = JSON.parse(data);
-    const newProject = {
+  try {
+    const newProject = new Project({
       title,
       description,
       date,
+      type,
       url,
       image
-    };
-
-    projects.push(newProject);
-
-    // Sauvegarder les projets mis à jour
-    fs.writeFile('./data/projects.json', JSON.stringify(projects, null, 2), (err) => {
-      if (err) return res.status(500).send('Erreur de sauvegarde du projet.');
-      res.redirect('/projects'); // Rediriger vers la page des projets
     });
-  });
+
+    await newProject.save();
+    res.redirect('/projects');
+  } catch (err) {
+    return res.status(500).send('Erreur de sauvegarde du projet.');
+  }
 });
 
-app.post('/admin/delete/:title', requireAdmin, (req, res) => {
-  const { title } = req.params; // Récupère le titre du projet depuis l'URL
+app.post('/admin/delete/:title', requireAdmin, async (req, res) => {
+  const { title } = req.params;
 
-  fs.readFile('./data/projects.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
-
-    let projects = JSON.parse(data);
-    projects = projects.filter(project => project.title !== title); // Filtrer le projet à supprimer
-
-    // Sauvegarder les projets mis à jour dans le fichier JSON
-    fs.writeFile('./data/projects.json', JSON.stringify(projects, null, 2), (err) => {
-      if (err) return res.status(500).send('Erreur de sauvegarde du fichier projets.');
-
-      res.redirect('/admin'); // Rediriger vers la page admin après la suppression
-    });
-  });
+  try {
+    await Project.deleteOne({ title: title });
+    res.redirect('/admin');
+  } catch (err) {
+    return res.status(500).send('Erreur de suppression du projet.');
+  }
 });
 
-app.get('/admin/edit/:title', requireAdmin, (req, res) => {
+app.get('/admin/edit/:title', requireAdmin, async (req, res) => {
   const title = req.params.title;
 
-  fs.readFile('./data/projects.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
-
-    const projects = JSON.parse(data);
-    const project = projects.find(p => p.title === title);
+  try {
+    const project = await Project.findOne({ title: title });
 
     if (!project) return res.status(404).send('Projet non trouvé.');
 
     res.render('edit', { project, pageTitle: 'Edit projects' });
-  });
+  } catch (err) {
+    return res.status(500).send('Erreur de lecture du projet.');
+  }
 });
 
-app.post('/admin/edit/:title', requireAdmin, (req, res) => {
+app.post('/admin/edit/:title', requireAdmin, async (req, res) => {
   const originalTitle = req.params.title;
-  const { title, description, date, url } = req.body;
+  const { title, description, date, type, url } = req.body;
 
-  fs.readFile('./data/projects.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Erreur de lecture du fichier projets.');
-
-    let projects = JSON.parse(data);
-    const projectIndex = projects.findIndex(p => p.title === originalTitle);
-
-    if (projectIndex === -1) return res.status(404).send('Projet non trouvé.');
-
-    // Mettre à jour les infos
-    projects[projectIndex] = {
-      ...projects[projectIndex],
-      title,
-      description,
-      date,
-      url
-    };
-
-    fs.writeFile('./data/projects.json', JSON.stringify(projects, null, 2), (err) => {
-      if (err) return res.status(500).send('Erreur de mise à jour du projet.');
-      res.redirect('/admin');
-    });
-  });
+  try {
+    await Project.findOneAndUpdate(
+      { title: originalTitle },
+      { title, description, date, type, url },
+      { new: true }
+    );
+    res.redirect('/admin');
+  } catch (err) {
+    return res.status(500).send('Erreur de mise à jour du projet.');
+  }
 });
 
 app.get('/login', (req, res) => {
@@ -205,8 +178,8 @@ app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 });
 
 //listen on port 3000
-const port = 3000
+const port = process.env.PORT || 3000
 app.listen(port, ()=> 
 	{
-		console.log('Serveur online at http://localhost:${port}');
+		console.log(`Serveur online on port ${port}`);
 	});
