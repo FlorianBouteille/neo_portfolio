@@ -96,10 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
                           const dx = other.position.x - body.position.x;
                           const dy = other.position.y - body.position.y;
                           const dist = Math.sqrt(dx*dx + dy*dy);
-                          const minDist = (body.circleRadius + other.circleRadius) * 3; // zone d’influence
+                          const minDist = (body.circleRadius + other.circleRadius) * 2; // zone d’influence
 
                           if (dist < minDist && dist > 0) {
-                              const force = 0.02 ; // ajustable
+                              const force = 0.08 ; // ajustable
                               Matter.Body.applyForce(
                                   other,
                                   other.position,
