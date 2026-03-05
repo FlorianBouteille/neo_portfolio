@@ -1,202 +1,72 @@
-/* 
-offwhite	:	#F4F1DE
-orange  	: 	#E07A5F
-blue 		: 	#3D405B
-green		:	#81B29A
-sand		:	#F2CC8F
-https://dev.to/uuuuuulala/making-background-blob-animation-in-just-15kb-step-by-step-guide-2482
-https://codepen.io/MoorLex/pen/pRRzKx
-*/
-
-/* html, body
-{
-	height: 100%;
-	margin: 0;
-}
-
-body
-{
-	height: 100%;
-	margin : 0;
-	padding: 0;
-	background-color	:	#F4F1DE;
-	color				:	#3D405B;
-	display: flex;
-	flex-direction: column;
-}
-
-main
-{
-	flex: 1;
-}
-
-header
-{
-	background-color	:	#81B29A;
-	display				:	flex;
-	align-items			:	center;
-	justify-content		:	center;
-	min-height			:	100px;	
-}
-
-footer
-{
-	background-color	:	#E07A5F;
-	display				:	flex;
-	align-items			:	center;
-	justify-content		:	center;
-	min-height			:	100px;	
-}
-
-h1
-{
-	text-align	:	center;
-	margin		:	0;
-}
-
-a
-{
-	text-decoration	:	none;
-}
-
-a:visited
-{
-	text-decoration	:	none;
-	color			:	#3D405B;
-}
-
-main
-{
-	display			:	flex;
-	flex-direction	:	column;
-	justify-content	:	center;
-	align-items		:	center;
-}
-
-.mainImage
-{
-	max-width		: 80%;       
-  	height			: auto;           
-  	border-radius	: 30px;   
-  	object-fit		: cover;      
-  	box-shadow		: 0 2px 8px rgba(0, 0, 0, 0.1); 
-	margin			: 0 auto;
-	margin-top		: 3%;
-}
-
-ul.projectsWrapper {
-	height: 80%;
-  padding: 0;
-  margin: 0;
-}
-
-.color1 { background-color: #E07A5F; }
-.color2 { background-color: #3D405B; }
-.color3 { background-color: #81B29A; }
-
-.colorCircle
-{
-  	display: flex;
- 	justify-content: center;
- 	align-items: center;
-  	position: relative;
-  	width: 100%;
-  	height: 100%;
-  	border-radius: 50%; 
-	transition: .3s ease;
-}
-
-li:hover .colorCircle
-{
-	transform: scale(0);
-}
-
-li {
-  list-style-type: none;
-  width: 150px;
-  height: 150px;
-  margin: 10px;
-  border-radius: 50%; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: 0.3s ease;
-}
-
-li a {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  position: relative;
-  border-radius: 50%; 
-  overflow: hidden;
-  background-size: cover;
-}
-
-li a h2
-{
-	color:	#F4F1DE;	
-	text-align:	center;
-}
-
-li:hover
-{
-	width: 200px;
-	height: 200px;
-	border:	10px solid #3D405B;
-}
-
-#physics-container {
-  position: relative;
-  width: 100%;
-  height: 80vh; 
-  overflow: hidden;
-}
-
-.projectsWrapper {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.project-ball {
-  position: absolute; 
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.project-ball .circleContent {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-} 
-*/
-
-
-
 /* Reset global */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #F4F1DE;
-    color: #3D405B;
+  background-color: #020024;
+    color: #e6e7f1;
 }
 
 /* Body et main */
 body {
     display: flex;
     flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 43%, rgb(3, 64, 77) 100%);
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  left: -55vw;
+  right: -55vw;
+  top: 53%;
+  height: 95vh;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 65, 235, 0.72) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 65, 235, 0.72) 2px, transparent 2px);
+  background-size: 92px 92px;
+  transform: perspective(900px) rotateX(70deg) scale(1.45);
+  transform-origin: top center;
+  opacity: 0.8;
+  filter:
+    drop-shadow(0 0 4px rgba(255, 65, 235, 0.8))
+    drop-shadow(0 0 14px rgba(255, 65, 235, 0.45));
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 53%;
+  height: 3px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 170, 250, 0.85) 12%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 170, 250, 0.85) 88%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 10px rgba(255, 150, 245, 0.95),
+    0 0 26px rgba(255, 90, 230, 0.8),
+    0 0 52px rgba(255, 40, 210, 0.55);
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 main {
     flex: 1;
@@ -210,13 +80,13 @@ header, footer {
     min-height: 100px;
 }
 
-header {
+/* header {
     background-color: #81B29A;
 }
 
 footer {
     background-color: #E07A5F;
-}
+} */
 
 /* Titles */
 h1, h2 {
@@ -237,7 +107,7 @@ a
 a:visited
 {
 	text-decoration	:	none;
-	color			:	#3D405B;
+	color			:	#e6e7f1;
 }
 
 /* Physics container */
@@ -254,47 +124,96 @@ a:visited
     border-radius: 50%;
     cursor: pointer;
     overflow: hidden;
+  border: 2px solid rgba(255, 65, 235, 0.85);
+  box-shadow:
+    0 0 8px rgba(255, 65, 235, 0.7),
+    0 0 18px rgba(255, 65, 235, 0.35);
+  transition: box-shadow 0.3s ease;
     /* width/height définis par JS via radius */
 }
 
 .projectBubble .circleContent {
+  position: relative;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-size: cover;
-    background-position: center;
+	  background-size: cover;
+	  background-position: center;
 	  display: flex;
     justify-content: center;  /* centre horizontalement */
     align-items: center;      /* centre verticalement */
     text-align: center;
 }
 
+.projectBubble .circleContent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(2, 0, 36, 0.92);
+  transition: opacity 0.3s ease;
+}
+
+.projectBubble:hover .circleContent::before {
+  opacity: 0;
+}
+
 .projectBubble h2 {
+    position: relative;
+    z-index: 2;
     color: #F4F1DE;
     margin: 0;
     padding: 0 5px; /* pour éviter que le texte touche les bords */
     font-size: 1.5em; /* ajuste si besoin selon le radius */
     word-wrap: break-word;
-    opacity: 0;
+    opacity: 1;
+    text-shadow:
+      0 0 6px rgba(0, 0, 0, 0.75),
+      0 0 14px rgba(0, 0, 0, 0.6);
 }
 
 /* Optionnel : style hover pour zoom */
 .projectBubble:hover {
-    transform: scale(1.2);
     transition: transform 0.3s ease;
+    box-shadow:
+      0 0 14px rgba(255, 65, 235, 0.95),
+      0 0 28px rgba(255, 65, 235, 0.55);
 }
 
-.projectBubble:hover img
+/* Buttons container */
+
+.buttonContainer
 {
-  overflow: hidden;
-  opacity:0;
+  height: 60%;
+  width: 40%;
+  margin: auto;
+  display:flex;
+  align-items: center;
+  flex-direction:column;
+  justify-content:space-evenly;
 }
 
-.projectBubble:hover h2
+.buttonContainer > a
 {
-  opacity: 1;
+  display: inline-block;
+  width: 70%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border: 1px solid transparent;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
+.buttonContainer > a:hover
+{
+  transform: translateY(-2px);
+  border-color: rgba(255, 170, 250, 0.85);
+  box-shadow:
+    0 0 10px rgba(255, 150, 245, 0.95),
+    0 0 26px rgba(255, 90, 230, 0.8),
+    0 0 52px rgba(255, 40, 210, 0.55);
+}
 
 /* Supprimer flex/grid qui clash avec les bulles */
 ul.projectsWrapper, li, li a {
@@ -430,4 +349,16 @@ ul.projectsWrapper, li, li a {
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
+}
+
+.silkscreen-regular {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.silkscreen-bold {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
