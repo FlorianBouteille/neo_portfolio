@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         World.add(engine.world, body);
-        bubbles.push({ el, body });
+        bubbles.push({ el, body, isHovered: false, radius: radius });
         // click
         el.addEventListener("click", () => {
             window.location.href = el.dataset.url;
@@ -75,41 +75,119 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4️⃣ Mettre à jour DOM à chaque frame
     // 1️⃣ Ajout des écouteurs hover une seule fois
-    bubbles.forEach(({el, body}) => {
-      el.addEventListener("mouseenter", () => el.classList.add("hovered"));
-      el.addEventListener("mouseleave", () => el.classList.remove("hovered"));
+    bubbles.forEach((bubble) => {
+      const { el } = bubble;
+      el.addEventListener("mouseenter", () => {
+        bubble.isHovered = true;
+        el.classList.add("hovered");
+      });
+      el.addEventListener("mouseleave", () => {
+        bubble.isHovered = false;
+        el.classList.remove("hovered");
+      });
     });
+    const CELL_SIZE = 220; // à ajuster selon ton rayon d’influence moyen
+
+    function cellKey(x, y) 
+    {
+        const cx = Math.floor(x / CELL_SIZE);
+        const cy = Math.floor(y / CELL_SIZE);
+        return `${cx},${cy}`;
+    }
+
+    function getNeighborKeys(x, y) 
+    {
+        const cx = Math.floor(x / CELL_SIZE);
+        const cy = Math.floor(y / CELL_SIZE);
+        const keys = [];
+        for (let dx = -1; dx <= 1; dx++) 
+        {
+            for (let dy = -1; dy <= 1; dy++)
+            {
+                keys.push(`${cx + dx},${cy + dy}`);
+            }
+        }
+        return keys;
+    }
 
 // 2️⃣ AfterUpdate pour mise à jour du DOM + forces
       Matter.Events.on(engine, "afterUpdate", () => {
-          bubbles.forEach(({el, body}) => {
-              // scale visuel
-              let scale = el.classList.contains("hovered") ? 1.2 : 1;
-              el.style.transform = `translate(${body.position.x - el.clientWidth/2}px,
-                                              ${body.position.y - el.clientHeight/2}px)
-                                    rotate(${body.angle}rad) scale(${scale})`;
+        const grid = new Map();
+        for (const bubble of bubbles)
+        {
+            const { body } = bubble;
+            const key = cellKey(body.position.x, body.position.y);
+            if (!grid.has(key))
+                grid.set(key, []);
+            grid.get(key).push(bubble);
+        }
+        for (const bubble of bubbles) 
+        {
+            const { el, body, isHovered, radius } = bubble;
 
-              // si hover, pousser les voisins
-              if (el.classList.contains("hovered")) {
-                  bubbles.forEach(({body: other}) => {
-                      if (other !== body) {
-                          const dx = other.position.x - body.position.x;
-                          const dy = other.position.y - body.position.y;
-                          const dist = Math.sqrt(dx*dx + dy*dy);
-                          const minDist = (body.circleRadius + other.circleRadius) * 2; // zone d’influence
+            const scale = isHovered ? 1.2 : 1;
+            el.style.transform = `translate(${body.position.x - radius}px, ${body.position.y - radius}px) rotate(${body.angle}rad) scale(${scale})`;
 
-                          if (dist < minDist && dist > 0) {
-                              const force = 0.08 ; // ajustable
-                              Matter.Body.applyForce(
-                                  other,
-                                  other.position,
-                                  { x: (dx/dist)*force, y: (dy/dist)*force }
-                              );
-                          }
-                      }
-                  });
-              }
-          });
+            if (!isHovered) continue;
+
+            const neighborKeys = getNeighborKeys(body.position.x, body.position.y);
+
+            for (const key of neighborKeys) {
+            const candidates = grid.get(key);
+            if (!candidates) continue;
+
+            for (const candidate of candidates) {
+                const other = candidate.body;
+                if (other === body) continue;
+
+                const dx = other.position.x - body.position.x;
+                const dy = other.position.y - body.position.y;
+                const distSq = dx * dx + dy * dy;
+
+                const minDist = (body.circleRadius + other.circleRadius) * 2;
+                const minDistSq = minDist * minDist;
+
+                if (distSq > 0 && distSq < minDistSq) 
+                {
+                    const dist = Math.sqrt(distSq); // seulement ici, quand nécessaire
+                    const force = 0.08;
+                    Matter.Body.applyForce(other, other.position, 
+                    {
+                        x: (dx / dist) * force,
+                        y: (dy / dist) * force
+                    });
+                }
+            }
+            }
+        }
+        //   bubbles.forEach(({el, body, isHovered, radius}) => {
+        //       // scale visuel
+        //       let scale = isHovered ? 1.2 : 1;
+        //       el.style.transform = `translate(${body.position.x - radius}px,
+        //                                       ${body.position.y - radius}px)
+        //                             rotate(${body.angle}rad) scale(${scale})`;
+
+        //       // si hover, pousser les voisins
+        //       if (isHovered) {
+        //           bubbles.forEach(({body: other}) => {
+        //               if (other !== body) {
+        //                   const dx = other.position.x - body.position.x;
+        //                   const dy = other.position.y - body.position.y;
+        //                   const dist = Math.sqrt(dx*dx + dy*dy);
+        //                   const minDist = (body.circleRadius + other.circleRadius) * 2; // zone d’influence
+
+        //                   if (dist < minDist && dist > 0) {
+        //                       const force = 0.08 ; // ajustable
+        //                       Matter.Body.applyForce(
+        //                           other,
+        //                           other.position,
+        //                           { x: (dx/dist)*force, y: (dy/dist)*force }
+        //                       );
+        //                   }
+        //               }
+        //           });
+        //       }
+        //   });
       });
     //Render.run(render);
     // 5️⃣ Lancer moteur
