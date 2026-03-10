@@ -102,7 +102,7 @@ app.get('/admin', requireAdmin, async (req, res) => {
 });
 
 app.post('/admin', requireAdmin, upload.single('image'), async (req, res) => {
-  const { title, description, date, url } = req.body;
+  const { title, description, date, type, url } = req.body;
   const image = req.file ? `/uploads/${req.file.filename}` : '';
 
   try {

@@ -4,9 +4,30 @@
 
 <div id="physics-container">
   <h2 class="silkscreen-regular">Mes Projets</h2>
+  <div class="projectsLegend electrolize-regular" aria-label="Légende des types de projet">
+    <div class="legendItem">
+      <span class="legendDot projectType42" aria-hidden="true"></span>
+      <span>42</span>
+    </div>
+    <div class="legendItem">
+      <span class="legendDot projectTypeGraphic" aria-hidden="true"></span>
+      <span>Graphic</span>
+    </div>
+    <div class="legendItem">
+      <span class="legendDot projectTypeGame" aria-hidden="true"></span>
+      <span>Game</span>
+    </div>
+    <div class="legendItem">
+      <span class="legendDot projectTypeOther" aria-hidden="true"></span>
+      <span>Other</span>
+    </div>
+  </div>
   <ul class="projectsWrapper">
     <% projects.forEach(project => { %>
-      <li class="projectBubble" data-url="/projects/<%= project.title %>">
+      <% const typeClassMap = { '42': 'projectType42', graphic: 'projectTypeGraphic', graphics: 'projectTypeGraphic', game: 'projectTypeGame', other: 'projectTypeOther' }; %>
+      <% const projectType = (project.type || '').toLowerCase(); %>
+      <% const typeClass = typeClassMap[projectType] || 'projectTypeOther'; %>
+      <li class="projectBubble <%= typeClass %>" data-url="/projects/<%= project.title %>">
         <% const colors = ['color1', 'color2', 'color3']; %>
         <% const randomColor = colors[Math.floor(Math.random() * colors.length)]; %>
         <div class="circleContent <%= randomColor %>" 
