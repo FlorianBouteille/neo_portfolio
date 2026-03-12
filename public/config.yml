@@ -2,7 +2,7 @@ backend:
   name: github
   repo: FlorianBouteille/neo_portfolio
   branch: main
-  base_url: https://portfolio-decap-oauth.florianbouteille.workers.dev/
+  base_url: https://portfolio-decap-oauth.florianbouteille.workers.dev
   auth_endpoint: auth
 
 media_folder: public/uploads
