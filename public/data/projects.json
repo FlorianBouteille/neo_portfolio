@@ -50,7 +50,7 @@
     },
     {
       "title": "Philosophers",
-      "description": "An introduction to concurrent programming. \r\n\r\nThe dining philosophers problems is a classic illustration of multiple threads simultaneously trying to access the same data. It poses a lot of challenges and its pretty fun to do ! ",
+      "description": "An introduction to concurrent programming. \n\nThe dining philosophers problems is a classic illustration of multiple threads simultaneously trying to access the same data. It poses a lot of challenges, mainly data races, and its pretty fun to do ! \n",
       "date": "2025-03-04",
       "url": "https://github.com/FlorianBouteille/philo_42",
       "image": "/uploads/1744114998114.png",
