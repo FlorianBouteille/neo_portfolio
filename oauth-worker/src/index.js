@@ -38,17 +38,15 @@ function buildHandshakeScript(payloadExpression) {
 <script>
 (function () {
   const provider = 'github';
-  const targetOrigin = window.location.origin;
 
   function sendMessage(message) {
     if (window.opener) {
-      window.opener.postMessage(message, targetOrigin);
+      window.opener.postMessage(message, '*');
     }
   }
 
   function waitForHandshakeThenSend(finalMessage) {
     const onMessage = function (event) {
-      if (event.origin !== targetOrigin) return;
       if (event.data !== 'authorizing:' + provider) return;
       window.removeEventListener('message', onMessage);
       sendMessage(finalMessage);
@@ -84,11 +82,9 @@ function authPage({ clientId, scope, state, redirectUri }) {
     ${buildHandshakeScript(`'authorizing:github'`)}
     <script>
       (function () {
-        const targetOrigin = window.location.origin;
         const redirectUrl = ${JSON.stringify(authorizeUrl.toString())};
 
         const onMessage = function (event) {
-          if (event.origin !== targetOrigin) return;
           if (event.data !== 'authorizing:github') return;
           window.removeEventListener('message', onMessage);
           window.location.assign(redirectUrl);
