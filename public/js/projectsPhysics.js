@@ -1,6 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
+let physicsInitialized = false;
+
+function initProjectsPhysics() {
+    if (physicsInitialized) return;
+
     const projectEls = document.querySelectorAll(".projectBubble");
     if (projectEls.length === 0) return;
+
+    physicsInitialized = true;
 
     const Engine = Matter.Engine;
     const World = Matter.World;
@@ -109,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         return keys;
     }
-
+    console.log("script Physics found");
 // 2️⃣ AfterUpdate pour mise à jour du DOM + forces
       Matter.Events.on(engine, "afterUpdate", () => {
         const grid = new Map();
@@ -192,4 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //Render.run(render);
     // 5️⃣ Lancer moteur
     Engine.run(engine);
-});
+}
+
+document.addEventListener("DOMContentLoaded", initProjectsPhysics);
+document.addEventListener("projects:loaded", initProjectsPhysics);

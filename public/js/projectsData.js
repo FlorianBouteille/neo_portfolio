@@ -40,6 +40,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       item.appendChild(circle);
       wrapper.appendChild(item);
     });
+
+    document.dispatchEvent(
+      new CustomEvent('projects:loaded', {
+        detail: { count: projects.length }
+      })
+    );
   } catch (error) {
     const fallback = document.createElement('p');
     fallback.className = 'electrolize-regular';
