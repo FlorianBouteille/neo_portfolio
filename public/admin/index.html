@@ -8,63 +8,8 @@
       if (window.location.pathname === '/admin') {
         window.location.replace('/admin/');
       }
-      window.CMS_MANUAL_INIT = true;
     </script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
-  <body>
-    <script>
-      window.addEventListener('load', function () {
-        if (!window.CMS) {
-          document.body.innerHTML = '<p style="padding:16px;font-family:sans-serif;">Erreur: Decap CMS ne se charge pas (script CDN bloqué).</p>';
-          return;
-        }
-
-        window.CMS.init({
-          load_config_file: false,
-          config: {
-            backend: {
-              name: 'github',
-              repo: 'FlorianBouteille/neo_portfolio',
-              branch: 'main',
-              base_url: 'https://portfolio-decap-oauth.florianbouteille.workers.dev',
-              auth_endpoint: 'auth'
-            },
-            media_folder: 'public/uploads',
-            public_folder: '/uploads',
-            collections: [
-              {
-                name: 'portfolio_data',
-                label: 'Portfolio Data',
-                files: [
-                  {
-                    file: 'public/data/projects.json',
-                    name: 'projects_data',
-                    label: 'Projects JSON',
-                    format: 'json',
-                    fields: [
-                      {
-                        label: 'Projects',
-                        name: 'projects',
-                        widget: 'list',
-                        summary: '{{fields.title}}',
-                        fields: [
-                          { label: 'Title', name: 'title', widget: 'string' },
-                          { label: 'Description', name: 'description', widget: 'text' },
-                          { label: 'Date', name: 'date', widget: 'string' },
-                          { label: 'URL', name: 'url', widget: 'string' },
-                          { label: 'Type', name: 'type', widget: 'select', options: ['42', 'graphic', 'game', 'other'] },
-                          { label: 'Image', name: 'image', widget: 'image' }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        });
-      });
-    </script>
-  </body>
+  <body></body>
 </html>
