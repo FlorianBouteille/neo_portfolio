@@ -108,7 +108,22 @@ function callbackSuccessPage(token) {
   </head>
   <body>
     <p>Authentification réussie. Tu peux fermer cette fenêtre.</p>
-    ${buildHandshakeScript(`'authorization:github:success:' + ${JSON.stringify(payload)}`)}
+    <script>
+      (function () {
+        var message = 'authorization:github:success:' + ${JSON.stringify(payload)};
+
+        function send() {
+          if (window.opener) {
+            window.opener.postMessage(message, '*');
+          }
+        }
+
+        send();
+        setTimeout(send, 120);
+        setTimeout(send, 260);
+        setTimeout(function () { window.close(); }, 500);
+      })();
+    </script>
   </body>
 </html>`;
 }
@@ -125,7 +140,22 @@ function callbackErrorPage(message) {
   </head>
   <body>
     <p>Échec d'authentification: ${safeMessage}</p>
-    ${buildHandshakeScript(`'authorization:github:error:' + ${JSON.stringify(payload)}`)}
+    <script>
+      (function () {
+        var message = 'authorization:github:error:' + ${JSON.stringify(payload)};
+
+        function send() {
+          if (window.opener) {
+            window.opener.postMessage(message, '*');
+          }
+        }
+
+        send();
+        setTimeout(send, 120);
+        setTimeout(send, 260);
+        setTimeout(function () { window.close(); }, 500);
+      })();
+    </script>
   </body>
 </html>`;
 }

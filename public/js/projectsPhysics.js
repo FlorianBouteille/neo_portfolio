@@ -166,34 +166,6 @@ function initProjectsPhysics() {
             }
             }
         }
-        //   bubbles.forEach(({el, body, isHovered, radius}) => {
-        //       // scale visuel
-        //       let scale = isHovered ? 1.2 : 1;
-        //       el.style.transform = `translate(${body.position.x - radius}px,
-        //                                       ${body.position.y - radius}px)
-        //                             rotate(${body.angle}rad) scale(${scale})`;
-
-        //       // si hover, pousser les voisins
-        //       if (isHovered) {
-        //           bubbles.forEach(({body: other}) => {
-        //               if (other !== body) {
-        //                   const dx = other.position.x - body.position.x;
-        //                   const dy = other.position.y - body.position.y;
-        //                   const dist = Math.sqrt(dx*dx + dy*dy);
-        //                   const minDist = (body.circleRadius + other.circleRadius) * 2; // zone d’influence
-
-        //                   if (dist < minDist && dist > 0) {
-        //                       const force = 0.08 ; // ajustable
-        //                       Matter.Body.applyForce(
-        //                           other,
-        //                           other.position,
-        //                           { x: (dx/dist)*force, y: (dy/dist)*force }
-        //                       );
-        //                   }
-        //               }
-        //           });
-        //       }
-        //   });
       });
     //Render.run(render);
     // 5️⃣ Lancer moteur
