@@ -12,17 +12,11 @@ Ce projet est prêt pour un déploiement statique depuis le dossier `public/`.
   - `public/data/projects.json`
 - Vérifie l'admin CMS :
   - `public/admin/index.html`
-  - `public/admin/config.yml`
 
 ## 2) Configurer Decap CMS
 
-Le fichier `public/admin/config.yml` contient :
-
-- `backend.name: github`
-- `backend.repo: FlorianBouteille/neo_portfolio`
-- `backend.branch: main`
-
-Adapte `repo` et `branch` si nécessaire.
+La configuration CMS est injectée directement dans `public/admin/index.html`.
+Adapte `repo`, `branch` et `base_url` si nécessaire.
 
 ## 3) Configurer l'auth GitHub OAuth pour Decap
 
@@ -39,7 +33,7 @@ Le projet contient déjà un Worker OAuth prêt à déployer dans `oauth-worker/
   - `wrangler secret put GITHUB_CLIENT_ID`
   - `wrangler secret put GITHUB_CLIENT_SECRET`
   - `wrangler deploy`
-3. Mettre à jour `public/admin/config.yml`
+3. Mettre à jour `public/admin/index.html`
   - `base_url: https://<ton-worker>.workers.dev`
   - `auth_endpoint: auth`
 
