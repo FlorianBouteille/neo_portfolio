@@ -54,10 +54,15 @@ Dans Cloudflare Pages :
 - Build output directory : `public`
 - Framework preset : `None`
 
-Le fichier `public/_redirects` gère les URLs propres :
-- `/projects` -> `/projects.html`
-- `/project` -> `/project.html`
-- `/admin` -> `/admin/index.html`
+Cloudflare Pages gère déjà les URLs propres pour les fichiers `.html`.
+
+Exemples attendus sans fichier `_redirects` :
+- `/projects` sert `projects.html`
+- `/project` sert `project.html`
+- `/admin` sert `admin/index.html`
+
+Important: ne pas ajouter de règle `_redirects` du type `/projects /projects.html 200`
+si la fonctionnalité Pretty URLs est active, sinon ça peut créer une boucle de redirection.
 
 ## 5) Vérifier le workflow
 
