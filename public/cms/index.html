@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio Admin</title>
+    <script>
+      if (window.location.pathname === '/admin') {
+        window.location.replace('/admin/');
+      }
+      window.CMS_MANUAL_INIT = true;
+      window.DECAP_CMS_MANUAL_INIT = true;
+      window.__PORTFOLIO_CMS_INIT_DONE = false;
+
+      function showAdminError(message) {
+        const target = document.getElementById('admin-status');
+        if (!target) return;
+        target.textContent = message;
+        target.style.color = '#ff4d4f';
+      }
+
+      window.addEventListener('error', function (event) {
+        showAdminError('Erreur JS: ' + (event.message || 'unknown'));
+      });
+
+      window.addEventListener('unhandledrejection', function (event) {
+        const reason = event.reason && event.reason.message ? event.reason.message : String(event.reason || 'unknown');
+        showAdminError('Erreur Promise: ' + reason);
+      });
+    </script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <p id="admin-status" style="font-family: sans-serif; padding: 12px; margin: 0;">Chargement de l'admin...</p>
+    <script>
+      (function () {
+        if (window.__PORTFOLIO_CMS_INIT_DONE) {
+          return;
+        }
+
+        if (!window.CMS) {
+          showAdminError('Decap CMS introuvable (CDN non chargé).');
+          return;
+        }
+
+        try {
+          window.__PORTFOLIO_CMS_INIT_DONE = true;
+          window.CMS.init({
+            load_config_file: false,
+            config: {
+              backend: {
+                name: 'github',
+                repo: 'FlorianBouteille/neo_portfolio',
+                branch: 'main',
+                base_url: 'https://portfolio-decap-oauth.florianbouteille.workers.dev',
+                auth_endpoint: 'auth'
+              },
+              media_folder: 'public/uploads',
+              public_folder: '/uploads',
+              collections: [
+                {
+                  name: 'portfolio_data',
+                  label: 'Portfolio Data',
+                  files: [
+                    {
+                      file: 'public/data/projects.json',
+                      name: 'projects_data',
+                      label: 'Projects JSON',
+                      format: 'json',
+                      fields: [
+                        {
+                          label: 'Projects',
+                          name: 'projects',
+                          widget: 'list',
+                          summary: '{{fields.title}}',
+                          fields: [
+                            { label: 'Title', name: 'title', widget: 'string' },
+                            { label: 'Description', name: 'description', widget: 'text' },
+                            { label: 'Date', name: 'date', widget: 'string' },
+                            { label: 'URL', name: 'url', widget: 'string' },
+                            { label: 'Type', name: 'type', widget: 'select', options: ['42', 'graphic', 'game', 'other'] },
+                            { label: 'Image', name: 'image', widget: 'image' }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          });
+
+          const status = document.getElementById('admin-status');
+          if (status) {
+            status.style.display = 'none';
+          }
+        } catch (error) {
+          showAdminError('Init CMS impossible: ' + (error && error.message ? error.message : String(error)));
+        }
+      })();
+    </script>
+  </body>
+</html>
