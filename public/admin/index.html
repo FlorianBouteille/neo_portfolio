@@ -9,6 +9,8 @@
         window.location.replace('/admin/');
       }
       window.CMS_MANUAL_INIT = true;
+      window.DECAP_CMS_MANUAL_INIT = true;
+      window.__PORTFOLIO_CMS_INIT_DONE = false;
 
       function showAdminError(message) {
         const target = document.getElementById('admin-status');
@@ -32,12 +34,17 @@
     <p id="admin-status" style="font-family: sans-serif; padding: 12px; margin: 0;">Chargement de l'admin...</p>
     <script>
       (function () {
+        if (window.__PORTFOLIO_CMS_INIT_DONE) {
+          return;
+        }
+
         if (!window.CMS) {
           showAdminError('Decap CMS introuvable (CDN non chargé).');
           return;
         }
 
         try {
+          window.__PORTFOLIO_CMS_INIT_DONE = true;
           window.CMS.init({
             load_config_file: false,
             config: {
