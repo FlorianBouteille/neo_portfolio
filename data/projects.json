@@ -4,76 +4,95 @@
     "description": "My very own first library ! First project of the 42 cursus. A library of utilities using only write(), malloc(), and free().\r\nBonus part about chained lists. ",
     "date": "2024-20-11",
     "url": "https://github.com/FlorianBouteille/Libft_42",
-    "image": "/uploads/1744113517331.jpg"
+    "image": "/uploads/1744113517331.jpg",
+    "type": "42"
   },
   {
     "title": "Ft_printf",
     "description": "Recoding the printf function, with less options. An introduction to variadic functions. ",
     "date": "2024-03-12",
     "url": "https://github.com/FlorianBouteille/ft_printf_42",
-    "image": "/uploads/1744113658487.jpg"
+    "image": "/uploads/1744113658487.jpg",
+    "type": "42"
   },
   {
     "title": "Get_next_line",
     "description": "Get the next line ! A function thet returns a line from a file. This project is about buffer management and memory allocation in C. ",
     "date": "2024-18-12",
     "url": "https://github.com/FlorianBouteille/get_next_line42",
-    "image": "/uploads/1744113885894.jpg"
+    "image": "/uploads/1744113885894.jpg",
+    "type": "42"
   },
   {
     "title": "Push_Swap",
     "description": "An introduction to the wonderful world of sorting algorithms !\r\n\r\nThe goal is to sort a stack of numbers by rotating it and pushing numbers to and from another stack. \r\n\r\nAlso linked lists. ",
     "date": "2025-20-01",
     "url": "https://github.com/FlorianBouteille/push_swap_42",
-    "image": "/uploads/1744114160935.jpg"
+    "image": "/uploads/1744114160935.jpg",
+    "type": "42"
   },
   {
     "title": "Pipex",
     "description": "Recode the pipe | from bash in a C program. \r\n\r\nThis project is about child processes and pipes. \r\n\r\nTook me a while. ",
     "date": "2025-22-02",
     "url": "https://github.com/FlorianBouteille/Pipex_42",
-    "image": "/uploads/1744114321349.jpg"
+    "image": "/uploads/1744114321349.jpg",
+    "type": "42"
   },
   {
     "title": "So_long",
     "description": "My first mini-game in C !\r\n\r\nA 2D platformer with a very basic event handling and window management part. An opportunity to get into larger work environments. \r\n\r\nIts quite fun !",
     "date": "2025-08-03",
     "url": "https://github.com/FlorianBouteille/so_long_42",
-    "image": "/uploads/1744114758470.png"
+    "image": "/uploads/1744114758470.png",
+    "type": "42"
   },
   {
     "title": "Philosophers",
     "description": "An introduction to concurrent programming. \r\n\r\nThe dining philosophers problems is a classic illustration of multiple threads simultaneously trying to access the same data. It poses a lot of challenges and its pretty fun to do ! ",
     "date": "2025-03-04",
     "url": "https://github.com/FlorianBouteille/philo_42",
-    "image": "/uploads/1744114998114.png"
+    "image": "/uploads/1744114998114.png",
+    "type": "42"
   },
   {
     "title": "Old Portfolio",
     "description": "My old portfolio containing mostly graphical projects using the P5.js library and a few other tools. \r\n\r\nThis library, and a lot of dan shiffman's tutorials are how i got into programming and will always have a special place in my heart. ",
     "date": "2022-12-12",
     "url": "https://florianbouteille.github.io/portfolio.github.io/",
-    "image": "/uploads/1744115917137.png"
+    "image": "/uploads/1744115917137.png",
+    "type": "42"
   },
   {
     "title": "Minishell",
     "description": "The first really consequent project in the 42 Common core. \r\n\r\nThe point is to implement a robust command line interpreter, just like bash. \r\n\r\nThe first part of the project was an exhaustive parsing challenge, as the project, in essence, is to read and interpret any user input. This was split into two major parts, the \"lexing\", aka splitting the input into comprehensive tokens, and the actual parsing of these tokens, in order to differenciate between commands, arguments, options and pipes. \r\n\r\nThe second part was about execution, each command needs to be run in its own subprogram and send its result into the next command through a pipe. Behavior has to be consistent, especially in case of error, each subprogram has to handle and free its data properly and close file descriptors. \r\n\r\nFinally, it needed some signal handling, as the program had to interpret signals in order to exit properly according to where it receives the signal (main program, subprogram, heredoc, etc...). \r\n\r\nThis was a great team effort and though its not very visual, we're pretty proud of the result ! ",
     "date": "24/04/2025",
     "url": "https://github.com/FlorianBouteille/Minishell_42",
-    "image": "/uploads/1764929788535.png"
+    "image": "/uploads/1764929788535.png",
+    "type": "42"
   },
   {
     "title": "Cub3D",
     "description": "A big project in the 42 Common core involving and old and fun technology : raycasting. \r\n\r\nInspired from the classic \"3D\" game Wolfenstein, the idea is to take a 2D representation of a map with walls, doors and empty spaces and simulate a 3D view from it by casting a set of rays from the position of the player and drawing the environment in real time. \r\n\r\nAs usual, this project starts with a lot of parsing, as every 42 project is always thouroughly tested by peers and should never behave unexpectedly in case of errors. So we took our time trying to foresee every possible error case while opening the file map and in the map itself. \r\nThen, we could start the actual core of the project, calculating the view. We started by drawing a simple minimap and tracing a single vector from the player, making sure the segment stopped when it encountered an obstacle. From that, we were able do determine a field of view and drawing one vector per pixel in the width of the rendering screen. This involved some basic trigonometry, as every vector needs to be cast according to the player position and orientation in the map. We then built textures for all 4 types of walls (north, south, east and west) and implemented a method do find out which wall needed to be drawn according to the vector direction and player position. The height of each wall segment is then drawn according to the vector length, the smaller the vector, the bigger the wall, and each pixel was selected vertically in the texture to get the final result. \r\n\r\nAs a bonus, we built a system for opening doors, a minimap, some light animation and a \"fast run\" option. \r\n\r\nThis was a really fun project and we're happy with the final product ! ",
     "date": "02/09/2025",
     "url": "git@github.com:FlorianBouteille/cub3D_42.git",
-    "image": "/uploads/1764933239396.png"
+    "image": "/uploads/1764933239396.png",
+    "type": "42"
   },
   {
-    "title": "asd",
-    "description": "adss",
-    "date": "sadad",
-    "url": "fdsafasd",
-    "image": "/uploads/1772638374024.jpg"
+    "title": "Flock Simulation",
+    "description": "# Flock Simulation\r\n\r\nTry the simulation : https://swim-with-friends.pages.dev/\r\n\r\nMy attempt at trying to recreate the famous Craig Reynolds flock simulation from scratch in Three.js.\r\n\r\nThe goal is to simulate the behavior of a flock of animals such as birds or fish, that we will call boids. There are no global predeterminded path or pattern, nothing that tells boids they should go some place in order to form a flock. Instead, each individual boid choses its direction according to the position and orientation of its neighbors, just like an actual school of fish. \r\n\r\nEach boid moves according to three distinct forces. \r\n1- Cohesion : the boid determines the average position of its neighbors and tries to move towards it.\r\n2- Separation : the boid tries to avoid colliding with its closest neighbors, the closer they are, the more it tries to move away.\r\n3- Alignment : the boid determines the average orientation of its neighbors and matches his accordingly.\r\n\r\nBy carefully implementing these forces and weighing them, we try to get as close as possible to what looks like an actual school of fish. \r\n\r\nI also added a light random factor, to make it seem more natural, as well as current and placed a box in the center so that boids dont just fly off the screen. \r\n\r\nAlso, a shark. And buttons. \r\n\r\nEnjoy ! ",
+    "date": "09/03/2026",
+    "url": "https://swim-with-friends.pages.dev/",
+    "type": "graphic",
+    "image": "/uploads/1773153436748.png"
+  },
+  {
+    "title": "Fractal Tree",
+    "description": "A cool little project I did to visualize recursion through a nice little tree.\r\n\r\nEach branch represents a level of recursion. \r\n\r\nThe function \"branch\" calls itself twice and makes two more branches on top of it. \r\n\r\nSimple but elegant ! ",
+    "date": "25/03/2020",
+    "url": "https://florianbouteille.github.io/fractaltree.github.io/",
+    "type": "graphic",
+    "image": "/uploads/1773159245182.png"
   }
 ]

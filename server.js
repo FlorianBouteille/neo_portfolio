@@ -2,15 +2,21 @@
 const express = require('express');
 const engine = require('ejs-mate');
 require('dotenv').config();
-const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-const Project = require('./models/Project');
+const fs = require('fs/promises');
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI).then(() => console.log('MongoDB connected'))
-  .catch(err => console.log('MongoDB connection error:', err));
+const projectsJsonPath = path.join(__dirname, 'data', 'projects.json');
+
+async function readProjects() {
+  const rawData = await fs.readFile(projectsJsonPath, 'utf8');
+  return JSON.parse(rawData);
+}
+
+async function writeProjects(projects) {
+  await fs.writeFile(projectsJsonPath, JSON.stringify(projects, null, 2), 'utf8');
+}
 
 
 const storage = multer.diskStorage({
@@ -59,7 +65,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/projects', async (req, res) => {
   try {
-    const projects = await Project.find();
+    const projects = await readProjects();
     res.json(projects);
   } catch (err) {
     return res.status(500).json({error: 'Database reading Error'});
@@ -68,7 +74,7 @@ app.get('/api/projects', async (req, res) => {
 
 app.get('/projects', async (req, res) => {
   try {
-    const projects = await Project.find();
+    const projects = await readProjects();
     res.render('projects', {projects: projects, 
                           pageTitle: 'Mes Projets'});
   } catch (err) {
@@ -80,7 +86,8 @@ app.get('/projects/:title', async (req, res) => {
   const { title } = req.params;
 
   try {
-    const project = await Project.findOne({ title: title });
+    const projects = await readProjects();
+    const project = projects.find((item) => item.title === title);
 
     if (!project) {
       return res.status(404).send('Projet non trouvé.');
@@ -94,7 +101,7 @@ app.get('/projects/:title', async (req, res) => {
 
 app.get('/admin', requireAdmin, async (req, res) => {
   try {
-    const projects = await Project.find();
+    const projects = await readProjects();
     res.render('admin', { projects, pageTitle: 'Admin' });
   } catch (err) {
     return res.status(500).send('Erreur de lecture des projets.');
@@ -106,16 +113,24 @@ app.post('/admin', requireAdmin, upload.single('image'), async (req, res) => {
   const image = req.file ? `/uploads/${req.file.filename}` : '';
 
   try {
-    const newProject = new Project({
+    const projects = await readProjects();
+    const existingProject = projects.find((item) => item.title === title);
+
+    if (existingProject) {
+      return res.status(400).send('Un projet avec ce titre existe déjà.');
+    }
+
+    const newProject = {
       title,
       description,
       date,
       type,
       url,
       image
-    });
+    };
 
-    await newProject.save();
+    projects.push(newProject);
+    await writeProjects(projects);
     res.redirect('/projects');
   } catch (err) {
     return res.status(500).send('Erreur de sauvegarde du projet.');
@@ -126,7 +141,9 @@ app.post('/admin/delete/:title', requireAdmin, async (req, res) => {
   const { title } = req.params;
 
   try {
-    await Project.deleteOne({ title: title });
+    const projects = await readProjects();
+    const filteredProjects = projects.filter((item) => item.title !== title);
+    await writeProjects(filteredProjects);
     res.redirect('/admin');
   } catch (err) {
     return res.status(500).send('Erreur de suppression du projet.');
@@ -137,7 +154,8 @@ app.get('/admin/edit/:title', requireAdmin, async (req, res) => {
   const title = req.params.title;
 
   try {
-    const project = await Project.findOne({ title: title });
+    const projects = await readProjects();
+    const project = projects.find((item) => item.title === title);
 
     if (!project) return res.status(404).send('Projet non trouvé.');
 
@@ -152,11 +170,31 @@ app.post('/admin/edit/:title', requireAdmin, async (req, res) => {
   const { title, description, date, type, url } = req.body;
 
   try {
-    await Project.findOneAndUpdate(
-      { title: originalTitle },
-      { title, description, date, type, url },
-      { new: true }
+    const projects = await readProjects();
+    const projectIndex = projects.findIndex((item) => item.title === originalTitle);
+
+    if (projectIndex === -1) {
+      return res.status(404).send('Projet non trouvé.');
+    }
+
+    const duplicateTitle = projects.find(
+      (item, index) => item.title === title && index !== projectIndex
     );
+
+    if (duplicateTitle) {
+      return res.status(400).send('Un projet avec ce titre existe déjà.');
+    }
+
+    projects[projectIndex] = {
+      ...projects[projectIndex],
+      title,
+      description,
+      date,
+      type,
+      url
+    };
+
+    await writeProjects(projects);
     res.redirect('/admin');
   } catch (err) {
     return res.status(500).send('Erreur de mise à jour du projet.');

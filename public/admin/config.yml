@@ -1,0 +1,30 @@
+backend:
+  name: github
+  repo: FlorianBouteille/neo_portfolio
+  branch: main
+  base_url: https://YOUR-OAUTH-WORKER.workers.dev
+  auth_endpoint: auth
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: portfolio_data
+    label: Portfolio Data
+    files:
+      - file: public/data/projects.json
+        name: projects_data
+        label: Projects JSON
+        format: json
+        fields:
+          - label: Projects
+            name: projects
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Date, name: date, widget: string }
+              - { label: URL, name: url, widget: string }
+              - { label: Type, name: type, widget: select, options: ['42', 'graphic', 'game', 'other'] }
+              - { label: Image, name: image, widget: image }
