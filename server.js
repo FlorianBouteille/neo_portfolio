@@ -7,15 +7,16 @@ const path = require('path');
 const fs = require('fs/promises');
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-const projectsJsonPath = path.join(__dirname, 'data', 'projects.json');
+const projectsJsonPath = path.join(__dirname, 'public', 'data', 'projects.json');
 
 async function readProjects() {
   const rawData = await fs.readFile(projectsJsonPath, 'utf8');
-  return JSON.parse(rawData);
+  const parsedData = JSON.parse(rawData);
+  return Array.isArray(parsedData) ? parsedData : parsedData.projects || [];
 }
 
 async function writeProjects(projects) {
-  await fs.writeFile(projectsJsonPath, JSON.stringify(projects, null, 2), 'utf8');
+  await fs.writeFile(projectsJsonPath, JSON.stringify({ projects }, null, 2), 'utf8');
 }
 
 
