@@ -114,7 +114,6 @@ header, footer {
     align-items: center;
     justify-content: center;
     min-height: 100px;
-    mix-blend-mode: screen;
 }
 
 /* header {
@@ -349,6 +348,20 @@ a:visited
     0 0 10px rgba(255, 150, 245, 0.95),
     0 0 26px rgba(255, 90, 230, 0.8),
     0 0 52px rgba(255, 40, 210, 0.55);
+}
+
+.home header,
+.home main,
+.home footer {
+  mix-blend-mode: difference;
+}
+
+.home h1,
+.home .buttonContainer h2,
+.home footer h2,
+.home a,
+.home a:visited {
+  color: #ffffff;
 }
 
 /* Supprimer flex/grid qui clash avec les bulles */

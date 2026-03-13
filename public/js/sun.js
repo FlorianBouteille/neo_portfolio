@@ -7,7 +7,7 @@ const horizonY = sizeY * 0.53;  // ligne d'horizon en pixels
 const radiusX = sizeX * 0.4;    // demi-largeur de l'ellipse
 const radiusY = sizeY * 0.40;   // hauteur de l'arc dans le ciel
 const centerX = sizeX / 2;      // centre horizontal = milieu de l'écran
-const speed = 0.003;             // radians par frame
+const speed = 0.008;             // radians par frame
 
 let angle = 0;
 
