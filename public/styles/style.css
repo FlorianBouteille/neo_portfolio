@@ -350,6 +350,37 @@ a:visited
     0 0 52px rgba(255, 40, 210, 0.55);
 }
 
+/* .home header,
+.home main,
+.home footer {
+  mix-blend-mode: difference;
+}
+
+.home h1,
+.home .buttonContainer h2,
+.home footer h2,
+.home a,
+.home a:visited {
+  color: rgb(235, 164, 176);
+} */
+
+.contactPage main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0;
+  gap: 0.75rem;
+}
 /* Supprimer flex/grid qui clash avec les bulles */
 ul.projectsWrapper, li, li a {
     display: block;
