@@ -3,7 +3,7 @@
 	<head>
 		<%- include('partials/head', {pageTitle: pageTitle}) %>
 	</head>
-	<body>
+	<body<% if (typeof bodyClass !== 'undefined' && bodyClass) { %> class="<%= bodyClass %>"<% } %>>
 		<%- include('partials/header', {pageTitle: pageTitle}) %>
 		<main>
 			<%- body %>
