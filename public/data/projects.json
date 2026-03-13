@@ -95,6 +95,14 @@
       "url": "https://florianbouteille.github.io/fractaltree.github.io/",
       "type": "graphic",
       "image": "/uploads/1773159245182.png"
+    },
+    {
+      "title": "Webserv",
+      "description": "A lightweight HTTP server written in C as part of the 42 school curriculum.\n\nAbout\n\nWebserv is a custom implementation of a minimal HTTP server built from scratch using low-level system calls. The goal of this project is to understand how real web servers work by recreating the core mechanisms behind HTTP communication, request parsing, and connection handling.\n\nInstead of relying on existing servers like Nginx or Apache, this project focuses on building the essential components of a web server manually.",
+      "date": "18/12/2025",
+      "url": "https://github.com/FlorianBouteille/webserv_42",
+      "type": "42",
+      "image": "https://img.freepik.com/premium-vector/funny-404-error-page-with-robot_986045-584.jpg?semt=ais_hybrid&w=740&q=80"
     }
   ]
 }
