@@ -138,6 +138,7 @@ h1
 a
 {
 	text-decoration	:	none;
+  color: #e6e7f1;
 }
 
 a:visited
@@ -366,6 +367,7 @@ a:visited
 .cv
 {
   text-align:center;
+  max-width: fit-content;
 }
 
 .cvDownload {
@@ -418,6 +420,12 @@ ul.projectsWrapper, li, li a {
 	padding: 3%;
 	flex-direction: column;
 	align-items: center;
+}
+
+.projectPage .electrolize-regular {
+  text-align: center;
+  max-width: min(90vw, 900px);
+  word-break: break-word;
 }
 
 .mainImage
