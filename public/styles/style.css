@@ -363,6 +363,27 @@ a:visited
 .home a:visited {
   color: rgb(235, 164, 176);
 } */
+.cv
+{
+  text-align:center;
+}
+
+.cvDownload {
+  display: inline-block;
+  padding: 0.65rem 1.8rem;
+  border: 1px solid transparent;
+  text-transform: lowercase;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.cvDownload:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 170, 250, 0.85);
+  box-shadow:
+    0 0 10px rgba(255, 150, 245, 0.95),
+    0 0 26px rgba(255, 90, 230, 0.8),
+    0 0 52px rgba(255, 40, 210, 0.55);
+}
 
 .contactPage main {
   display: flex;
