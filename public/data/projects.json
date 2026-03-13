@@ -103,6 +103,14 @@
       "url": "https://github.com/FlorianBouteille/webserv_42",
       "type": "42",
       "image": "https://img.freepik.com/premium-vector/funny-404-error-page-with-robot_986045-584.jpg?semt=ais_hybrid&w=740&q=80"
+    },
+    {
+      "title": "Snowflakes",
+      "description": "A cool geometry project in P5.js !\n\nDraw with your mouse and get your absolutely unique, wonderful little snowflake. \n\nThis was done as a part of my early training in JS. ",
+      "url": "https://florianbouteille.github.io/colorflakes.github.io/",
+      "date": "20/06/2020",
+      "type": "graphic",
+      "image": "https://florianbouteille.github.io/portfolio.github.io/snowflake.png"
     }
   ]
 }
