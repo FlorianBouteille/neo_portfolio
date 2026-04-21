@@ -117,7 +117,7 @@
       "title": "Transcendence",
       "description": "ft_transcendence is a full-stack web project from the 42 curriculum focused on building a modern multiplayer experience in the browser.\n\nThe project combines user management, authentication, profile and friends features, match history, and real-time gameplay. Our implementation includes a 3D game client, online interactions, and a containerized architecture to keep development and deployment consistent across environments.\n\nThe stack is split into dedicated services (API, game backend, frontend, database, and reverse proxy), orchestrated with Docker Compose. The goal is to deliver both a solid product structure and a polished gameplay experience.",
       "date": "18/03/2026",
-      "url": "Create a .env file at the root of the repository and add credentials just like in the .env.example file.  Clone the repository and use the command :  make  Then open a browser and visit the url :  localhost:8080  click \"advanced\" and accept the SSL certificate.  For multiplayer gameplay (42 LAN environment) :  Modify the ./frontend/vite.config.js file to add your post number (ex : f6r9s4) to the allowed_hosts list. Then anyone on the network can open a browser and visit the url 'http://[postnumber]:8080' and join the server to play.",
+      "url": "https://github.com/FlorianBouteille/Transcendence",
       "type": "42"
     }
   ]
